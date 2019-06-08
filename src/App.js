@@ -28,9 +28,9 @@ class App extends React.Component {
     const country = e.target.elements.country.value;
 
     console.log(city + " " + country);
-    
 
-    const api_call = await fetch("http://api.openweathermap.org/data/2.5/weather?q=" + city + "," + country + "&appid=" + API_KEY + "&units=imperial");
+
+    const api_call = await fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "," + country + "&appid=" + API_KEY + "&units=imperial");
     console.log(api_call);
 
     const data = await api_call.json();
@@ -39,7 +39,7 @@ class App extends React.Component {
     //only renders it if the values is true
     if (city && country) {
       console.log("City and country exist");
-      
+
       this.setState({
         temperature: data.main.temp + "°F",
         city: data.name,
@@ -47,14 +47,14 @@ class App extends React.Component {
         humidity: data.main.humidity,
         description: data.weather[0].description,
         error: ""
-    });
+      });
 
-    
-    
 
-  } else {
+
+
+    } else {
       console.log("City and country do not exist");
-      
+
       this.setState({
         temperature: undefined,
         city: undefined,
@@ -67,41 +67,41 @@ class App extends React.Component {
   }
 
   //constructor(){
-    //we can also use an arrow function that binds to App
-    //this.getWeather = this.getWeather.bind(this);
+  //we can also use an arrow function that binds to App
+  //this.getWeather = this.getWeather.bind(this);
   //}
 
 
-//About JSX: you can only return one parent element per render
-//getWeather is a prop.  When we add it to Form, we allow Form.js to use it.
-render() {
-  return (
-    <div>
-      <div className="wrapper">
-        <div className="main">
-          <div className="container">
-            <div className="row">
-              <div className="col-xs-5 title-container">
-                <Titles />
-              </div>
-              <div className="col-xs-6 form-container">
-                <Form getWeather={this.getWeather} />
-                <Weather 
-                  temperature={this.state.temperature} 
-                  humidity={this.state.humidity}
-                  city={this.state.city}
-                  country={this.state.country}
-                  description={this.state.description}
-                  error={this.state.error}
-                />
+  //About JSX: you can only return one parent element per render
+  //getWeather is a prop.  When we add it to Form, we allow Form.js to use it.
+  render() {
+    return (
+      <div>
+        <div className="wrapper">
+          <div className="main">
+            <div className="container">
+              <div className="row">
+                <div className="col-xs-5 title-container">
+                  <Titles />
+                </div>
+                <div className="col-xs-6 form-container">
+                  <Form getWeather={this.getWeather} />
+                  <Weather
+                    temperature={this.state.temperature}
+                    humidity={this.state.humidity}
+                    city={this.state.city}
+                    country={this.state.country}
+                    description={this.state.description}
+                    error={this.state.error}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 };
 
 
